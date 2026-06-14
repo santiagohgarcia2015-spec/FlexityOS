@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flexity - The Flexible Core</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background: #000;
+    color: #fff;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Fondo animado */
+.bg-grid {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image: 
+        linear-gradient(rgba(0,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,255,0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.bg-glow {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,255,255,0.15) 0%, transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+    animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+.content {
+    position: relative;
+    z-index: 1;
+}
+
+/* Navbar */
+nav {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    padding: 15px 30px;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #00FFFF22;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #00FFFF;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px #00FFFF;
+}
+
+.nav-logo img {
+    width: 30px;
+    height: 30px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #00FFFF;
+    text-shadow: 0 0 10px #00FFFF;
+}
+
+/* Hero */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px 40px;
+    text-align: center;
+}
+
+.hero-logo {
+    width: 180px;
+    height: 180px;
+    margin-bottom: 30px;
+    filter: drop-shadow(0 0 30px #00FFFF);
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.hero h1 {
+    font-size: clamp(48px, 10vw, 96px);
+    color: #fff;
+    letter-spacing: 8px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 30px #00FFFF;
+    font-weight: 300;
+}
+
+.hero .tagline {
+    color: #00FFFF;
+    font-size: clamp(14px, 3vw, 20px);
+    letter-spacing: 4px;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+}
+
+.hero .description {
+    max-width: 600px;
+    color: #aaa;
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 40px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn {
+    padding: 12px 30px;
+    border: 1px solid #00FFFF;
+    background: transparent;
+    color: #00FFFF;
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.3s;
+    border-radius: 4px;
+}
+
+.btn:hover {
+    background: #00FFFF;
+    color: #000;
+    box-shadow: 0 0 20px #00FFFF;
+}
+
+.btn.primary {
+    background: #00FFFF22;
+    box-shadow: 0 0 15px #00FFFF44;
+}
+
+/* Sections */
+section {
+    padding: 80px 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.section-title {
+    text-align: center;
+    color: #00FFFF;
+    font-size: clamp(28px, 5vw, 42px);
+    letter-spacing: 4px;
+    margin-bottom: 15px;
+    text-shadow: 0 0 20px #00FFFF;
+    font-weight: 300;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 50px;
+    letter-spacing: 2px;
+}
+
+/* About */
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.about-card {
+    background: rgba(0,255,255,0.03);
+    border: 1px solid #00FFFF33;
+    padding: 30px 25px;
+    border-radius: 8px;
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.about-card:hover {
+    border-color: #00FFFF;
+    box-shadow: 0 0 25px #00FFFF33;
+    transform: translateY(-5px);
+}
+
+.about-card .icon {
+    font-size: 40px;
+    margin-bottom: 15px;
+    color: #00FFFF;
+}
+
+.about-card h3 {
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.about-card p {
+    color: #aaa;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* Icons Pack */
+.icons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 20px;
+    max-width: 700px;
+    margin: 40px auto 0;
+}
+
+.icon-item {
+    background: rgba(0,255,255,0.03);
+    border: 1px solid #00FFFF33;
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.icon-item:hover {
+    border-color: #00FFFF;
+    box-shadow: 0 0 25px #00FFFF44;
+    transform: scale(1.05);
+}
+
+.icon-item img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+}
+
+.icon-item .name {
+    color: #00FFFF;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Roadmap */
+.roadmap {
+    max-width: 700px;
+    margin: 40px auto 0;
+}
+
+.roadmap-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    background: rgba(0,255,255,0.03);
+    border: 1px solid #00FFFF22;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.roadmap-item.done {
+    border-color: #00FF8866;
+    background: rgba(0,255,136,0.05);
+}
+
+.roadmap-item .status {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #00FFFF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.roadmap-item.done .status {
+    background: #00FF88;
+    border-color: #00FF88;
+    color: #000;
+    font-weight: bold;
+}
+
+.roadmap-item.done .status::after {
+    content: '✓';
+}
+
+.roadmap-item .text {
+    color: #fff;
+    font-size: 14px;
+}
+
+.roadmap-item.done .text {
+    color: #ccc;
+}
+
+/* Footer */
+footer {
+    padding: 40px 20px;
+    text-align: center;
+    border-top: 1px solid #00FFFF22;
+    color: #555;
+    font-size: 13px;
+}
+
+footer .logo-small {
+    width: 40px;
+    margin-bottom: 15px;
+    opacity: 0.7;
+}
+
+footer a {
+    color: #00FFFF;
+    text-decoration: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    nav { padding: 12px 15px; }
+    .nav-links { gap: 12px; }
+    .nav-links a { font-size: 11px; }
+    .nav-logo { font-size: 14px; }
+    .hero-logo { width: 130px; height: 130px; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
+
+<div class="content">
+
+<nav>
+    <div class="nav-logo">
+        <img src="logo.png" alt="Flexity">
+        FLEXITY
+    </div>
+    <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#icons">Icons</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="https://github.com/santiagohgarcia2015-spec/FlexityOS" target="_blank">GitHub</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <img src="logo.png" alt="Flexity Logo" class="hero-logo">
+    <h1>FLEXITY</h1>
+    <p class="tagline">The Flexible Core</p>
+    <p class="description">
+        A minimalist, futuristic and optimized operating system built completely from scratch. 
+        No Linux base. No Windows base. Just pure code, designed to be fast, clean, and beautiful.
+    </p>
+    <div class="hero-buttons">
+        <a href="https://github.com/santiagohgarcia2015-spec/FlexityOS" class="btn primary" target="_blank">View on GitHub</a>
+        <a href="#about" class="btn">Learn More</a>
+    </div>
+</section>
+
+<section id="about">
+    <h2 class="section-title">ABOUT</h2>
+    <p class="section-subtitle">What makes Flexity different</p>
+    
+    <div class="about-grid">
+        <div class="about-card">
+            <div class="icon">⚡</div>
+            <h3>Ultra Fast</h3>
+            <p>Built from scratch with performance as the top priority. No bloat, no waste.</p>
+        </div>
+        <div class="about-card">
+            <div class="icon">🌀</div>
+            <h3>Minimalist</h3>
+            <p>Clean interface with only what you need. Pure black aesthetic with cyan glow accents.</p>
+        </div>
+        <div class="about-card">
+            <div class="icon">🎮</div>
+            <h3>Gaming Optimized</h3>
+            <p>Designed with gamers in mind. Maximum FPS, minimum overhead.</p>
+        </div>
+        <div class="about-card">
+            <div class="icon">🔧</div>
+            <h3>Customizable</h3>
+            <p>Make it yours. From the menu style to the glow color, everything adapts to you.</p>
+        </div>
+    </div>
+</section>
+
+<section id="icons">
+    <h2 class="section-title">ICON PACK</h2>
+    <p class="section-subtitle">Hand-crafted with consistent design</p>
+    
+    <div class="icons-grid">
+        <div class="icon-item">
+            <img src="assets/icons/files.png" alt="Files">
+            <div class="name">Files</div>
+        </div>
+        <div class="icon-item">
+            <img src="assets/icons/notes.png" alt="Notes">
+            <div class="name">Notes</div>
+        </div>
+        <div class="icon-item">
+            <img src="assets/icons/paint.png" alt="Paint">
+            <div class="name">Paint</div>
+        </div>
+        <div class="icon-item">
+            <img src="assets/icons/calculator.png" alt="Calculator">
+            <div class="name">Calculator</div>
+        </div>
+        <div class="icon-item">
+            <img src="assets/icons/settings.png" alt="Settings">
+            <div class="name">Settings</div>
+        </div>
+    </div>
+</section>
+
+<section id="roadmap">
+    <h2 class="section-title">ROADMAP</h2>
+    <p class="section-subtitle">The journey to Flexity v1.0</p>
+    
+    <div class="roadmap">
+        <div class="roadmap-item done">
+            <div class="status"></div>
+            <div class="text">Project Concept & Identity</div>
+        </div>
+        <div class="roadmap-item done">
+            <div class="status"></div>
+            <div class="text">Logo Design</div>
+        </div>
+        <div class="roadmap-item done">
+            <div class="status"></div>
+            <div class="text">Icon Pack (Basic Set)</div>
+        </div>
+        <div class="roadmap-item done">
+            <div class="status"></div>
+            <div class="text">First Bootloader</div>
+        </div>
+        <div class="roadmap-item">
+            <div class="status"></div>
+            <div class="text">Bootloader with Cyan Style</div>
+        </div>
+        <div class="roadmap-item">
+            <div class="status"></div>
+            <div class="text">Basic Kernel (C)</div>
+        </div>
+        <div class="roadmap-item">
+            <div class="status"></div>
+            <div class="text">Memory Management</div>
+        </div>
+        <div class="roadmap-item">
+            <div class="status"></div>
+            <div class="text">Keyboard Driver</div>
+        </div>
+        <div class="roadmap-item">
+            <div class="status"></div>
+            <div class="text">Graphics Engine</div>
+        </div>
+        <div class="roadmap-item">
+            <div class="status"></div>
+            <div class="text">Desktop Environment</div>
+        </div>
+        <div class="roadmap-item">
+            <div class="status"></div>
+            <div class="text">First ISO Release</div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <img src="logo.png" alt="Flexity" class="logo-small">
+    <p>Made with 🔥 from scratch</p>
+    <p style="margin-top: 10px;">© 2026 Flexity Project · <a href="https://github.com/santiagohgarcia2015-spec/FlexityOS" target="_blank">GitHub</a></p>
+</footer>
+
+</div>
+
+</body>
+              </html>
