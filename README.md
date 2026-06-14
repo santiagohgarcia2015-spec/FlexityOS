@@ -2,7 +2,7 @@
 
 <img src="logo.png" width="220">
 
-# Flexity 🌀
+# Flexity
 
 ### *The Flexible Core*
 
@@ -14,9 +14,9 @@
 
 *A minimalist, futuristic and optimized operating system built from scratch.*
 
----
-
 </div>
+
+---
 
 ## 🌀 About Flexity
 
@@ -39,10 +39,30 @@ Just pure code, designed to be **fast**, **clean**, **beautiful** and **optimize
 
 ---
 
+## 🎨 Icon Pack
+
+<div align="center">
+
+<img src="assets/icons/files.png" width="80">
+<img src="assets/icons/notes.png" width="80">
+<img src="assets/icons/paint.png" width="80">
+<img src="assets/icons/calculator.png" width="80">
+<img src="assets/icons/settings.png" width="80">
+
+### *Flexity Style — Cyan Glow Edition*
+
+**5 hand-crafted icons** with consistent design, perfect glow and pure black aesthetic.
+
+*More icons coming soon...*
+
+</div>
+
+---
+
 ## ✨ Features (Planned)
 
 ### Core
-- ⚡ Custom Bootloader (Assembly)
+- ⚡ Custom Bootloader (Assembly) ✅
 - 🧠 Custom Kernel (C)
 - 💾 Memory Management
 - ⌨️ Keyboard & Mouse Drivers
@@ -63,7 +83,7 @@ Just pure code, designed to be **fast**, **clean**, **beautiful** and **optimize
 - ⬛ Terminal
 - 🎵 Music Player
 - 🖼️ Gallery
-- 🌐 Browser
+- 🌐 Browser (FlexBrowser)
 - 🌤️ Weather
 - ⚙️ Settings
 
@@ -80,9 +100,10 @@ Just pure code, designed to be **fast**, **clean**, **beautiful** and **optimize
 - [x] Project Concept
 - [x] Logo Design
 - [x] GitHub Repository
-- [ ] Learn C & Assembly
-- [ ] Bootloader
-- [ ] Basic Kernel
+- [x] Icon Pack (Basic Set)
+- [x] First Bootloader
+- [ ] Bootloader with Cyan Style
+- [ ] Basic Kernel (C)
 - [ ] Memory Management
 - [ ] Keyboard Driver
 - [ ] Display Driver (Framebuffer)
@@ -108,14 +129,12 @@ Just pure code, designed to be **fast**, **clean**, **beautiful** and **optimize
 
 ## 📂 Project Structure
 Flexity/
+├── assets/
+│ └── icons/ # Flexity icon pack
 ├── bootloader/ # Boot sector code (ASM)
 ├── kernel/ # Core kernel (C)
-├── drivers/ # Hardware drivers
-├── gui/ # Graphical interface
-├── apps/ # System applications
-├── assets/ # Logos, fonts, images
-├── docs/ # Documentation
-├── tools/ # Build tools
+├── build/ # Compiled binaries
+├── logo.png # Official logo
 └── README.md
 
 ---
@@ -150,7 +169,7 @@ Open Source — Free for everyone.
 
 ### *Made with 🔥 from scratch*
 
-🌀
+<img src="logo.png" width="60">
 
 **Flexity**
 
