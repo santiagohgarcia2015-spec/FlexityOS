@@ -7,7 +7,7 @@
 ### *The Flexible Core*
 
 ![Status](https://img.shields.io/badge/Status-In%20Development-00FFFF?style=for-the-badge)
-![Version](https://img.shields.io/badge/Version-0.0.1-00FFFF?style=for-the-badge)
+![Version](https://img.shields.io/badge/Version-0.0.2-00FFFF?style=for-the-badge)
 ![Language](https://img.shields.io/badge/Language-C%20%2F%20ASM-00FFFF?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-Open%20Source-00FFFF?style=for-the-badge)
 ![Platform](https://img.shields.io/badge/Platform-x86-00FFFF?style=for-the-badge)
